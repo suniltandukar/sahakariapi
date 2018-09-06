@@ -35,7 +35,7 @@ public class StatementController {
 		map.put("accountNumber", accountNo);
 		map.put("statement", statement);
 		map.put("customer", customer);
-	data.put("data", map);
+		data.put("data", map);
 		
 		return data;
 	}
