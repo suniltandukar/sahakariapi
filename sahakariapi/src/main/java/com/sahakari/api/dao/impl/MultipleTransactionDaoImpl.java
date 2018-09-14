@@ -1,5 +1,6 @@
 package com.sahakari.api.dao.impl;
 
+import java.sql.Blob;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -32,5 +33,7 @@ public class MultipleTransactionDaoImpl implements MultipleTransactionDao {
 		String query = "select * from multipletransactiontbl where transactionId = '"+transactionId+"'";
 		return template.query(query, new BeanPropertyRowMapper<MultipleTransactiontbl>(MultipleTransactiontbl.class));
 	}
+	
+
 
 }
