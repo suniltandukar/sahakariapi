@@ -1,5 +1,7 @@
 package com.sahakari.api.dao.impl;
 
+import java.io.ByteArrayInputStream;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -8,7 +10,10 @@ import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.support.SqlLobValue;
+import org.springframework.jdbc.support.lob.DefaultLobHandler;
 import org.springframework.stereotype.Repository;
 
 import com.sahakari.api.dao.SignatureDao;
@@ -24,8 +29,11 @@ public class SignatureDaoImpl implements SignatureDao {
 
 	@Override
 	public int saveSignature(Signatures signatures) {
-		String query = "insert into signatures (accountNumber, image) values (:accountNumber, :image')";
-		 return template.update(query, new BeanPropertySqlParameterSource(signatures));
+		String query = "insert into signatures (accountNumber, image) values (:accountNumber, :image)";
+		MapSqlParameterSource map = new MapSqlParameterSource();
+		map.addValue("image", new SqlLobValue(new ByteArrayInputStream(signatures.getImage()), signatures.getImage().length, new DefaultLobHandler()), Types.BLOB);
+		map.addValue("accountNumber", signatures.getAccountNumber());
+		return template.update(query, map);
 	}
 
 	@Override

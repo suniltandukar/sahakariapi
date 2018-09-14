@@ -2,21 +2,23 @@ package com.sahakari.api.entities;
 
 public class Intrate {
 	private String id;
-	private String intratestartdate;
+	private String intereststartdate;
 	private String categoryid;
 	private String intrate;
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getIntratestartdate() {
-		return intratestartdate;
+	public String getIntereststartdate() {
+		return intereststartdate;
 	}
-	public void setIntratestartdate(String intratestartdate) {
-		this.intratestartdate = intratestartdate;
+	public void setIntereststartdate(String intereststartdate) {
+		this.intereststartdate = intereststartdate;
 	}
+	
 	public String getCategoryid() {
 		return categoryid;
 	}
@@ -31,7 +33,8 @@ public class Intrate {
 	}
 	@Override
 	public String toString() {
-		return "Intrate [id=" + id + ", intratestartdate=" + intratestartdate + ", categoryid=" + categoryid
+		return "Intrate [id=" + id + ", intereststartdate=" + intereststartdate + ", categoryid=" + categoryid
 				+ ", intrate=" + intrate + "]";
 	}
+	
 }

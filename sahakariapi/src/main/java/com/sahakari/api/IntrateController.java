@@ -1,6 +1,9 @@
 package com.sahakari.api;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,10 +22,18 @@ public class IntrateController {
 	@Autowired
 	IntrateService intrateService;
 	
+	Map<String, Object> map = new HashMap<String, Object>();
+	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public Map<String, Object> save(@ModelAttribute Intrate intrate){
-		intrateService.save(intrate);
-		return null;
+		int save_status = intrateService.save(intrate);
+		if(save_status>0) {
+			map.put("status", "ok");
+		}
+		else {
+			map.put("status", "no");
+		}
+		return map;
 	}
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
@@ -39,14 +50,15 @@ public class IntrateController {
 	
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public Map<String, Object> findAll(){
-		intrateService.findAll();
-		return null;
+		map.put("data", intrateService.findAll());
+		
+		return map;
 	}
 	
 	@RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
 	public Map<String, Object> findById(@PathVariable("id") String id){
-		intrateService.findById(id);
-		return null;
+		map.put("data", intrateService.findById(id));
+		return map;
 	}
 	
 
