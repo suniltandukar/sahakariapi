@@ -48,5 +48,11 @@ public class SignatureDaoImpl implements SignatureDao {
 		return template.queryForObject(query, new BeanPropertySqlParameterSource(signatureid), new BeanPropertyRowMapper<Signatures>(Signatures.class) );
 	}
 	
+	@Override
+	public Signatures findByAccountNumber(String accountNumber) {
+		String query ="select * from signatures where accountNumber = '"+accountNumber+"'";
+		return template.queryForObject(query, new BeanPropertySqlParameterSource(accountNumber), new BeanPropertyRowMapper<Signatures>(Signatures.class) );
+	}
+	
 
 }

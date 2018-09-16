@@ -1,7 +1,6 @@
 package com.sahakari.api;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +39,6 @@ public class ImageUploadController {
 	public Map<String, Object> uploadmedia(@RequestParam("file") MultipartFile file, @ModelAttribute Signatures signatures, HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
 //blob conversion
-		
 		try {
 			InputStream is = file.getInputStream();
 			byte[] targetArray = IOUtils.toByteArray(is);
@@ -70,18 +69,19 @@ public class ImageUploadController {
 			
 			Signatures signatures= signatureService.findById(signatureid);
 			byte[] image = signatures.getImage();
-		
-			response.setHeader("expires", "0");
-            response.setContentType("image/jpg");
-
-            OutputStream os = response.getOutputStream(); // output with the help of outputStream 
-            os.write(image);
-            os.flush();
-            os.close();
+			i.displayImage(image, response);
 		}
 		catch(Exception e) {
 			System.out.println(e);
 		}
+	}
+	
+	@RequestMapping(value = "/findByAccountNo/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public void findByAccountNumber(@PathVariable("id") String accountNumber, HttpServletResponse response) {
+		Signatures signatures= signatureService.findByAccountNumber(accountNumber);
+		byte[] image = signatures.getImage();
+		i.displayImage(image, response);
 	}
 	
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)

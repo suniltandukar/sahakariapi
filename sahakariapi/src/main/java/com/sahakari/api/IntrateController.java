@@ -22,10 +22,11 @@ public class IntrateController {
 	@Autowired
 	IntrateService intrateService;
 	
-	Map<String, Object> map = new HashMap<String, Object>();
+	
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public Map<String, Object> save(@ModelAttribute Intrate intrate){
+		Map<String, Object> map = new HashMap<String, Object>();
 		int save_status = intrateService.save(intrate);
 		if(save_status>0) {
 			map.put("status", "ok");
@@ -38,18 +39,24 @@ public class IntrateController {
 	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	public Map<String, Object> update(@PathVariable("id") String id, @ModelAttribute Intrate intrate){
-		intrateService.update(intrate, id);
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println(intrate);
+		int update_status = intrateService.update(intrate, id);
+		map.put("status", "ok");
+		return map;
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public Map<String, Object> delete(@PathVariable("id") String id){
-		intrateService.delete(id);
-		return null;
+		Map<String, Object> map = new HashMap<String, Object>();
+	int delete_status =	intrateService.delete(id);
+	map.put("status", "ok");
+		return map;
 	}
 	
 	@RequestMapping(value = "/findAll", method = RequestMethod.GET)
 	public Map<String, Object> findAll(){
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", intrateService.findAll());
 		
 		return map;
@@ -57,6 +64,7 @@ public class IntrateController {
 	
 	@RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
 	public Map<String, Object> findById(@PathVariable("id") String id){
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", intrateService.findById(id));
 		return map;
 	}

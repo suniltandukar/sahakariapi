@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.xml.bind.DatatypeConverter;
 
@@ -53,5 +55,21 @@ public class ImageConverter {
 	      }
 	      return null;
 	   }
+	
+	
+public void displayImage(byte[] image, HttpServletResponse response) {
+		try {
+		response.setHeader("expires", "0");
+        response.setContentType("image/jpg");
+
+        OutputStream os = response.getOutputStream(); // output with the help of outputStream 
+        os.write(image);
+        os.flush();
+        os.close();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	}
 
 }

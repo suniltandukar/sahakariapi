@@ -35,4 +35,10 @@ public class SignatureServiceImpl implements SignatureService {
 		return signatureDao.findById(signatureid);
 	}
 
+
+	@Override
+	public Signatures findByAccountNumber(String accountNumber) {
+		return signatureDao.findByAccountNumber(accountNumber);
+	}
+
 }

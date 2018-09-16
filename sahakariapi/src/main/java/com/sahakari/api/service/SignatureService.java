@@ -13,5 +13,7 @@ public interface SignatureService {
 
 	public Signatures findById(String signatureid);
 
+	public Signatures findByAccountNumber(String accountNumber);
+
 
 }
