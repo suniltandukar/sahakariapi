@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sahakari.api.dao.SignatureDao;
+import com.sahakari.api.entities.MemberDocument;
 import com.sahakari.api.entities.Signatures;
 import com.sahakari.api.service.SignatureService;
 
@@ -39,6 +40,12 @@ public class SignatureServiceImpl implements SignatureService {
 	@Override
 	public Signatures findByAccountNumber(String accountNumber) {
 		return signatureDao.findByAccountNumber(accountNumber);
+	}
+
+
+	@Override
+	public int saveDocument(MemberDocument memberDocument, int i) {
+		return signatureDao.saveDocument(memberDocument, i);
 	}
 
 }
