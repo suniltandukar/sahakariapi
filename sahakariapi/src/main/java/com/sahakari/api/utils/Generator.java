@@ -11,6 +11,7 @@ public class Generator {
 			int chequeNumber = 1000+i;
 			list.add(chequeNumber);
 		}
+		System.out.println(list);
 		return list;
 	}
 
